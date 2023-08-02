@@ -9,8 +9,8 @@ const history = [];
 function reducer(state = { amount: 1 }, action) {
   //state immutibility
   if (action.type === "increment")
-    state.amount= state.amount+1
-    // return { amount: state.amount + 1 };
+    // state.amount= state.amount+1
+    return { amount: state.amount + 1 };
   return state;
 }
 
