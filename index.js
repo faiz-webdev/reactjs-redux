@@ -5,6 +5,7 @@ import logger from "redux-logger";
 const inc = "increment";
 const dec = "decrement";
 const incByAmt = "incrementByAmount";
+const init = "init";
 
 //store
 const store = createStore(reducer, applyMiddleware(logger.default));
@@ -14,13 +15,18 @@ const history = [];
 // reducer
 function reducer(state = { amount: 1 }, action) {
   //state immutibility
-  if (action.type === inc) return { amount: state.amount + 1 };
-
-  if (action.type === dec) return { amount: state.amount - 1 };
-
-  if (action.type === incByAmt)
-    return { amount: state.amount + action.payload };
-  return state;
+  switch (action.type) {
+    case init:
+      return { amount: action.payload };
+    case inc:
+      return { amount: state.amount + 1 };
+    case dec:
+      return { amount: state.amount - 1 };
+    case incByAmt:
+      return { amount: state.amount + action.payload };
+    default:
+      return state;
+  }
 }
 
 //global state
@@ -42,8 +48,13 @@ function incrementByAmount(value) {
   return { type: incByAmt, payload: value };
 }
 
+function initUser(value) {
+  return { type: init, payload: value };
+}
+
 setInterval(() => {
-  store.dispatch(incrementByAmount(5));
+  //   store.dispatch(incrementByAmount(5));
   //   store.dispatch({ type: "decrement" });
   //   store.dispatch({ type: "incrementByAmount", payload: 4 });
+  store.dispatch(initUser(22));
 }, 500);
