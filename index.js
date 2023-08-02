@@ -24,10 +24,21 @@ function reducer(state = { amount: 1 }, action) {
 //   console.log(history);
 // });
 
-//action
-// store.dispatch({type:'increment'})
+//action creator
+function increment() {
+  return { type: "increment" };
+}
+
+function decrement() {
+    return { type: "increment" };
+  }
+
+  function incrementByAmount(value) {
+    return { type: "incrementByAmount", payload:value };
+  }
+
 setInterval(() => {
-  //   store.dispatch({ type: "increment" });
-//   store.dispatch({ type: "decrement" });
-  store.dispatch({ type: "incrementByAmount", payload: 4 });
+    store.dispatch(incrementByAmount(5));
+  //   store.dispatch({ type: "decrement" });
+//   store.dispatch({ type: "incrementByAmount", payload: 4 });
 }, 500);
