@@ -10,7 +10,7 @@ export const getUserAccount = createAsyncThunk(
   // Declare the type your function argument here:
   async (userId, thunkAPI) => {
     // const response = await fetch(`https://reqres.in/api/users/${userId}`)
-    const { data } = await axios(`http://localhost:8080/accounts/${userId}`);
+    const { data } = await axios(`http://localhost:8080/account/${userId}`);
     // Inferred return type: Promise<MyData>
     return data.amount;
   }
@@ -31,9 +31,18 @@ export const accountSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getUserAccount.fulfilled, (state, action) => {
-      state.amount = action.payload;
-    });
+    builder
+      .addCase(getUserAccount.fulfilled, (state, action) => {
+        state.amount = action.payload;
+        state.pending = false;
+      })
+      .addCase(getUserAccount.pending, (state, action) => {
+        state.pending = true;
+      })
+      .addCase(getUserAccount.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.pending = false;
+      });
   },
 });
 
