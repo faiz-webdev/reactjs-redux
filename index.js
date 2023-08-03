@@ -4,10 +4,11 @@ import logger from "redux-logger";
 import thunk from "redux-thunk";
 
 //action name constants
-const inc = "increment";
-const dec = "decrement";
-const incByAmt = "incrementByAmount";
-const init = "init";
+const inc = "account/increment";
+const dec = "account/decrement";
+const incByAmt = "account/incrementByAmount";
+const init = "account/init";
+const incBonus = "bonus/increment";
 
 //store
 const store = createStore(
@@ -37,8 +38,10 @@ function accountReducer(state = { amount: 1 }, action) {
 function bonusReducer(state = { points: 0 }, action) {
   //state immutibility
   switch (action.type) {
-    case inc:
+    case incBonus:
       return { points: state.points + 1 };
+    case incByAmt:
+      if (action.payload >= 100) return { points: state.points + 1 };
     default:
       return state;
   }
@@ -74,10 +77,15 @@ function initUser(value) {
   return { type: init, payload: value };
 }
 
+function incrementBonus(value) {
+    return { type: incBonus };
+  }
+
 setTimeout(() => {
   //   store.dispatch(incrementByAmount(5));
   //   store.dispatch({ type: "decrement" });
   //   store.dispatch({ type: "incrementByAmount", payload: 4 });
-//   store.dispatch(getUser(2));
-store.dispatch(increment())
+  //   store.dispatch(getUser(2));
+//   store.dispatch(incrementByAmount(90));
+  store.dispatch(incrementBonus());
 }, 500);
