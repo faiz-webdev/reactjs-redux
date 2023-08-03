@@ -9,7 +9,7 @@ export const getAccUserPending = "account/getUser/pending";
 export const getAccUserFulFilled = "account/getUser/fulfilled";
 export const getAccUserRejected = "account/getUser/rejected";
 
-const incBonus = "bonus/increment";
+export const incBonus = "bonus/increment";
 
 const getPostFulFilled = "posts/postFulFilled";
 const getPostRejected = "posts/getPostRejected";
@@ -40,19 +40,19 @@ export function getUserAccount(id) {
   };
 }
 
-function getAccountUserFulFilled(value) {
+export function getAccountUserFulFilled(value) {
   return { type: getAccUserFulFilled, payload: value };
 }
 
-function getAccountUserFulRejected(error) {
+export function getAccountUserFulRejected(error) {
   return { type: getAccUserRejected, error };
 }
 
-function getAccountUserFulPending() {
+export function getAccountUserFulPending() {
   return { type: getAccUserPending };
 }
 
-function incrementBonus(value) {
+export function incrementBonus(value) {
   return { type: incBonus };
 }
 
