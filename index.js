@@ -78,7 +78,7 @@ function getUserAccount(id) {
   return async (dispatch, getState) => {
     try {
       dispatch(getAccountUserFulPending());
-      const { data } = await axios.get(`http://localhost:3000/account/${id}`);
+      const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
       dispatch(getAccountUserFulFilled(data.amount));
     } catch (error) {
       dispatch(getAccountUserFulRejected(error.message));
