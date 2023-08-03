@@ -32,7 +32,7 @@ export function getUserAccount(id) {
   return async (dispatch, getState) => {
     try {
       dispatch(getAccountUserFulPending());
-      const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
+      const { data } = await axios.get(`http://localhost:8080/account/${id}`);
       dispatch(getAccountUserFulFilled(data.amount));
     } catch (error) {
       dispatch(getAccountUserFulRejected(error.message));
