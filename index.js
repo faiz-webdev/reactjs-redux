@@ -14,9 +14,17 @@ const getAccUserRejected = "account/getUser/rejected";
 
 const incBonus = "bonus/increment";
 
+const getPostFulFilled = "posts/postFulFilled";
+const getPostRejected = "posts/getPostRejected";
+const getPostPending = "posts/getPostPending";
+
 //store
 const store = createStore(
-  combineReducers({ account: accountReducer, bonus: bonusReducer }),
+  combineReducers({
+    account: accountReducer,
+    bonus: bonusReducer,
+    posts: postsReducer,
+  }),
   applyMiddleware(logger.default, thunk.default)
 );
 
@@ -50,6 +58,19 @@ function bonusReducer(state = { points: 0 }, action) {
       return { points: state.points + 1 };
     case incByAmt:
       if (action.payload >= 100) return { points: state.points + 1 };
+    default:
+      return state;
+  }
+}
+
+function postsReducer(state = { post: [] }, action) {
+  switch (action.type) {
+    case getPostFulFilled:
+      return { post:action.payload, pending: false };
+    case getPostRejected:
+      return { ...state, error: action.error, pending: false };
+    case getPostPending:
+      return { ...state, pending: true };
     default:
       return state;
   }
@@ -102,11 +123,41 @@ function incrementBonus(value) {
   return { type: incBonus };
 }
 
+/** @getpost start */
+
+function getPosts() {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(getPostsPending());
+      const { data } = await axios.get(
+        `https://jsonplaceholder.typicode.com/posts`
+      );
+      dispatch(getPostsFulFilled(data));
+    } catch (error) {
+      dispatch(getPostsFulRejected(error.message));
+    }
+  };
+}
+
+function getPostsFulFilled(value) {
+  return { type: getPostFulFilled, payload: value };
+}
+
+function getPostsFulRejected(error) {
+  return { type: getPostRejected, error };
+}
+
+function getPostsPending() {
+  return { type: getPostPending };
+}
+/*  end */
+
 setTimeout(() => {
   //   store.dispatch(incrementByAmount(5));
   //   store.dispatch({ type: "decrement" });
   //   store.dispatch({ type: "incrementByAmount", payload: 4 });
-  store.dispatch(getUserAccount(2));
+  //   store.dispatch(getUserAccount(2));
   //   store.dispatch(incrementByAmount(90));
   //   store.dispatch(incrementBonus());
+  store.dispatch(getPosts());
 }, 500);
