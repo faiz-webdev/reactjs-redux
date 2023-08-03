@@ -8,6 +8,7 @@ import { accountReducer } from "./reducers/account";
 import { bonusReducer } from "./reducers/bonus";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
+import { Provider } from "react-redux";
 
 const store = createStore(
   combineReducers({
@@ -20,7 +21,9 @@ const store = createStore(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App store={store} />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
