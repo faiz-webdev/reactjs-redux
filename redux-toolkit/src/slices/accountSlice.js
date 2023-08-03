@@ -9,13 +9,13 @@ export const accountSlice = createSlice({
   initialState,
   reducers: {
     increment: (state) => {
-      state.anount += 1; //immer library
+      state.amount += 1; //immer library
     },
     decrement: (state) => {
-      state.value -= 1;
+      state.amount -= 1;
     },
     incrementByAmount: (state, action) => {
-      state.value += action.payload;
+      state.amount += action.payload;
     },
   },
 });

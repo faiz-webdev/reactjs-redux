@@ -19,7 +19,6 @@ function Account() {
           <button onClick={()=>dispatch(decrement())}>Decrement -</button>
           <input type='text' onChange={(e)=>setValue(+e.target.value)}></input>
           <button onClick={()=>dispatch(incrementByAmount(value))}>Increment By {value} +</button>
-          {/* <button onClick={()=>dispatch(getUserAccount(1))}>Get User </button> */}
 
         </div>
       </div>
