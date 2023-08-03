@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 
@@ -11,14 +11,14 @@ const init = "init";
 
 //store
 const store = createStore(
-  reducer,
+  combineReducers({ account: accountReducer, bonus: bonusReducer }),
   applyMiddleware(logger.default, thunk.default)
 );
 
 const history = [];
 
 // reducer
-function reducer(state = { amount: 1 }, action) {
+function accountReducer(state = { amount: 1 }, action) {
   //state immutibility
   switch (action.type) {
     case init:
@@ -29,6 +29,16 @@ function reducer(state = { amount: 1 }, action) {
       return { amount: state.amount - 1 };
     case incByAmt:
       return { amount: state.amount + action.payload };
+    default:
+      return state;
+  }
+}
+
+function bonusReducer(state = { points: 0 }, action) {
+  //state immutibility
+  switch (action.type) {
+    case inc:
+      return { points: state.points + 1 };
     default:
       return state;
   }
@@ -64,9 +74,10 @@ function initUser(value) {
   return { type: init, payload: value };
 }
 
-setInterval(() => {
+setTimeout(() => {
   //   store.dispatch(incrementByAmount(5));
   //   store.dispatch({ type: "decrement" });
   //   store.dispatch({ type: "incrementByAmount", payload: 4 });
-  store.dispatch(getUser(2));
+//   store.dispatch(getUser(2));
+store.dispatch(increment())
 }, 500);

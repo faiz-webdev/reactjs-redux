@@ -8,5 +8,15 @@
       "id": 2,
       "amount": 200
     }
+  ],
+  "bonus": [
+    {
+      "id": 1,
+      "points": 2
+    },
+    {
+      "id": 2,
+      "points": 3
+    }
   ]
 }
