@@ -7,7 +7,7 @@ import {
 } from "../api/adminSlice";
 
 function Admin() {
-  const { data, error, isLoading } = useGetAccountsQuery();
+  const { data, error, isLoading, isSuccess } = useGetAccountsQuery();
   const [addAccount] = useAddAccountMutation();
   const [deleteAccount] = useDeleteAccountMutation();
   const [value, setValue] = useState(0);
@@ -25,7 +25,8 @@ function Admin() {
         <h4>
           <b>Admin Component</b>
         </h4>
-        {data &&
+        {isLoading?<p>Loading...</p>:''}
+        {isSuccess && data &&
           data.map((account, id) => (
             <p key={id}>
               {account.id}: {account.amount}
