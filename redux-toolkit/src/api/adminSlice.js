@@ -7,6 +7,7 @@ export const adminApi = createApi({
   endpoints: (builder) => ({
     getAccounts: builder.query({
       query: () => `accounts`,
+      transformResponse: (response) => response.sort((a, b) => a.amount - b.amount),
       providesTags: ["accounts"],
     }),
     addAccount: builder.mutation({
@@ -25,13 +26,13 @@ export const adminApi = createApi({
       invalidatesTags: ["accounts"],
     }),
     updateAccount: builder.mutation({
-        query: ({id, amount}) => ({
-          url: `accounts/${id}`,
-          method: "PATCH",
-          body: { amount },
-        }),
-        invalidatesTags: ["accounts"],
+      query: ({ id, amount }) => ({
+        url: `accounts/${id}`,
+        method: "PATCH",
+        body: { amount },
       }),
+      invalidatesTags: ["accounts"],
+    }),
   }),
 });
 
@@ -39,5 +40,5 @@ export const {
   useGetAccountsQuery,
   useAddAccountMutation,
   useDeleteAccountMutation,
-  useUpdateAccountMutation
+  useUpdateAccountMutation,
 } = adminApi;
