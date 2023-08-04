@@ -1,15 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./Cart.css";
-import { fetchAsync } from "./cartSlice";
-import { useEffect } from "react";
+import { deleteAsync } from "./cartSlice";
 
 export function Cart() {
-  const dispatch = useDispatch();
   const items = useSelector((state) => state.cart.items);
 
-  useEffect(() => {
-    dispatch(fetchAsync());
-  }, []);
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -34,8 +30,7 @@ export function Cart() {
               </select>
             </div>
             <div className="close">
-              {/* <button onClick={() => dispatch(deleteAsync(item.id))}>X</button> */}
-              <button type="button">X</button>
+              <button onClick={() => dispatch(deleteAsync(item.id))}>X</button>
             </div>
           </div>
         ))}

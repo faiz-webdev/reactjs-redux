@@ -555,14 +555,6 @@
   ],
   "cart": [
     {
-      "id": 1,
-      "title": "iPhone 9",
-      "brand": "Apple",
-      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-      "price": 549,
-      "quantity": 1
-    },
-    {
       "id": 2,
       "title": "iPhone X",
       "brand": "Apple",
@@ -584,6 +576,22 @@
       "brand": "Samsung",
       "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
       "price": 1249,
+      "quantity": 1
+    },
+    {
+      "id": 1,
+      "title": "iPhone 9",
+      "brand": "Apple",
+      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+      "price": 549,
+      "quantity": 1
+    },
+    {
+      "id": 5,
+      "title": "Huawei P30",
+      "brand": "Huawei",
+      "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+      "price": 499,
       "quantity": 1
     }
   ]

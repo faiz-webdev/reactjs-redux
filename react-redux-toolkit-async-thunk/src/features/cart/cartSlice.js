@@ -26,6 +26,12 @@ export const addAsync = createAsyncThunk("cart/addItem", async (item) => {
   return response.data;
 });
 
+export const deleteAsync = createAsyncThunk("cart/deleteItem", async (id) => {
+  await deleteItem(id);
+
+  return id;
+});
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -50,6 +56,13 @@ export const cartSlice = createSlice({
       .addCase(addAsync.rejected, (state, action) => {
         state.status = "idle";
         console.log(action.error.message);
+      })
+      .addCase(deleteAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        const index = state.items.findIndex(
+          (item) => item.id === action.payload
+        );
+        state.items.splice(index, 1);
       });
   },
 });
