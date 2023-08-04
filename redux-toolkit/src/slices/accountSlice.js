@@ -10,7 +10,7 @@ export const getUserAccount = createAsyncThunk(
   // Declare the type your function argument here:
   async (userId, thunkAPI) => {
     // const response = await fetch(`https://reqres.in/api/users/${userId}`)
-    const { data } = await axios(`http://localhost:8080/account/${userId}`);
+    const { data } = await axios(`http://localhost:8080/accounts/${userId}`);
     // Inferred return type: Promise<MyData>
     return data.amount;
   }
