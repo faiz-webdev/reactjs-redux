@@ -1,22 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchProducts } from "./cartAPI";
+import { fetchItems, addItem, updateItem, deleteItem } from "./cartAPI";
 
 const initialState = {
-  products: [],
+  items: [],
   status: "idle",
 };
 
-export const fetchAsync = createAsyncThunk(
-  "products/fetchProduct",
-  async () => {
-    const response = await fetchProducts();
+export const fetchAsync = createAsyncThunk("cart/fetchItems", async () => {
+  const response = await fetchItems();
 
-    return response.data;
-  }
-);
+  return response.data;
+});
 
-export const productsSlice = createSlice({
-  name: "products",
+export const addAsync = createAsyncThunk("cart/fetchItems", async (item) => {
+  const response = await addItem(item);
+
+  return response.data;
+});
+
+export const cartSlice = createSlice({
+  name: "cart",
   initialState,
   reducers: {},
 
@@ -27,11 +30,16 @@ export const productsSlice = createSlice({
       })
       .addCase(fetchAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.products = action.payload;
+        state.items = action.payload;
+      })
+      .addCase(addAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.items.push(action.payload);
       });
   },
 });
 
-// export const {} = productsSlice.actions;
-
-export default productsSlice.reducer;
+export default cartSlice.reducer;
