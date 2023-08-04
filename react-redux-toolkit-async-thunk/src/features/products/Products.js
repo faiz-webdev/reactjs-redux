@@ -2,20 +2,25 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Products.css";
 import { fetchAsync } from "./productsSlice";
 import { addAsync } from "../cart/cartSlice";
+import { useEffect } from "react";
 
 export function Products() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
 
+  useEffect(() => {
+    dispatch(fetchAsync());
+  }, []);
+
   return (
     <div>
       <div>
-        <button
+        {/* <button
           aria-label="Decrement value"
           onClick={() => dispatch(fetchAsync())}
         >
           Fetch Products
-        </button>
+        </button> */}
 
         {products.map((product, index) => (
           <div key={index} className="card">

@@ -571,6 +571,14 @@
       "quantity": 1
     },
     {
+      "id": 4,
+      "title": "OPPOF19",
+      "brand": "OPPO",
+      "thumbnail": "https://i.dummyjson.com/data/products/4/thumbnail.jpg",
+      "price": 280,
+      "quantity": 1
+    },
+    {
       "id": 3,
       "title": "Samsung Universe 9",
       "brand": "Samsung",
