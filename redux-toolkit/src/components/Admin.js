@@ -1,7 +1,14 @@
-import { useGetAccountsQuery } from "../api/adminSlice";
+import {
+  useAddAccountMutation,
+  useDeleteAccountMutation,
+  useGetAccountsQuery,
+} from "../api/adminSlice";
 
 function Admin() {
   const { data, error, isLoading } = useGetAccountsQuery();
+  const [addAccount] = useAddAccountMutation();
+  const [deleteAccount] = useDeleteAccountMutation();
+
   return (
     <div className="card">
       <div className="container">
@@ -12,9 +19,14 @@ function Admin() {
           data.map((account) => (
             <p>
               {account.id}: {account.amount}
+              <button onClick={() => deleteAccount(account.id)}>
+                Delete Account
+              </button>
             </p>
           ))}
-        {/* <button onClick={()=>dispatch(increment())}>Increment +</button> */}
+        <button onClick={() => addAccount(101, data.length + 1)}>
+          Add Account
+        </button>
       </div>
     </div>
   );

@@ -5,8 +5,8 @@
       "amount": 100
     },
     {
-      "id": 2,
-      "amount": 200
+      "amount": 101,
+      "id": 3
     }
   ],
   "bonus": [
