@@ -24,6 +24,14 @@ export const adminApi = createApi({
       }),
       invalidatesTags: ["accounts"],
     }),
+    updateAccount: builder.mutation({
+        query: ({id, amount}) => ({
+          url: `accounts/${id}`,
+          method: "PATCH",
+          body: { amount },
+        }),
+        invalidatesTags: ["accounts"],
+      }),
   }),
 });
 
@@ -31,4 +39,5 @@ export const {
   useGetAccountsQuery,
   useAddAccountMutation,
   useDeleteAccountMutation,
+  useUpdateAccountMutation
 } = adminApi;

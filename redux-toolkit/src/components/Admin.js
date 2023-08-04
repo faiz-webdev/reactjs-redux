@@ -1,21 +1,23 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   useAddAccountMutation,
   useDeleteAccountMutation,
   useGetAccountsQuery,
+  useUpdateAccountMutation,
 } from "../api/adminSlice";
 
 function Admin() {
   const { data, error, isLoading } = useGetAccountsQuery();
   const [addAccount] = useAddAccountMutation();
   const [deleteAccount] = useDeleteAccountMutation();
-  const [value,setValue] = useState(0) ; 
+  const [value, setValue] = useState(0);
+  const [updateAccount] = useUpdateAccountMutation();
 
-  const handleAddAccount =(value)=> {
+  const handleAddAccount = (value) => {
     // console.log(value);
-    addAccount(value, data.length + 1)
-    setValue(0)
-  }
+    addAccount(value, data.length + 1);
+    setValue(0);
+  };
 
   return (
     <div className="card">
@@ -30,9 +32,14 @@ function Admin() {
               <button onClick={() => deleteAccount(account.id)}>
                 Delete Account
               </button>
+              <button
+                onClick={() => updateAccount({ id: account.id, amount: 777 })}
+              >
+                Update Account
+              </button>
             </p>
           ))}
-          <input type='text' onChange={(e)=>setValue(+e.target.value)}></input>
+        <input type="text" onChange={(e) => setValue(+e.target.value)}></input>
         {/* <button onClick={() => addAccount(value, data.length + 1)}>
           Add Account By {value}
         </button> */}
