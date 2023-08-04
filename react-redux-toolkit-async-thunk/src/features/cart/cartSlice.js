@@ -12,7 +12,7 @@ export const fetchAsync = createAsyncThunk("cart/fetchItems", async () => {
   return response.data;
 });
 
-export const addAsync = createAsyncThunk("cart/fetchItems", async (item) => {
+export const addAsync = createAsyncThunk("cart/addItem", async (item) => {
   const response = await addItem(item);
 
   return response.data;
@@ -38,6 +38,10 @@ export const cartSlice = createSlice({
       .addCase(addAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.items.push(action.payload);
+      })
+      .addCase(addAsync.rejected, (state, action) => {
+        state.status = "idle";
+        console.log(action.error.message)
       });
   },
 });

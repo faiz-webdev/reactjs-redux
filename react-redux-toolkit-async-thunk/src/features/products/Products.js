@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./Products.css";
 import { fetchAsync } from "./productsSlice";
+import { addAsync } from "../cart/cartSlice";
 
 export function Products() {
   const dispatch = useDispatch();
@@ -16,8 +17,8 @@ export function Products() {
           Fetch Products
         </button>
 
-        {products.map((product) => (
-          <div className="card">
+        {products.map((product, index) => (
+          <div key={index} className="card">
             <img
               src={product.thumbnail}
               alt={product.title}
@@ -27,7 +28,7 @@ export function Products() {
             <p className="price">${product.price}</p>
             <p>{product.description}</p>
             <p>
-              <button>Add to Cart</button>
+              <button onClick={()=> dispatch(addAsync(product))}>Add to Cart</button>
             </p>
           </div>
         ))}

@@ -14,8 +14,8 @@ export function Cart() {
   return (
     <div>
       <div>
-        {items.map((item) => (
-          <div className="cart-item">
+        {items.map((item, index) => (
+          <div key={index} className="cart-item">
             <img className="img-fluid" src={item.thumbnail} alt="" />
             <div className="description">
               <p>{item.title}</p>
