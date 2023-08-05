@@ -1,11 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./Cart.css";
-import { deleteAsync } from "./cartSlice";
+import { deleteAsync, updateAsync } from "./cartSlice";
 
 export function Cart() {
   const items = useSelector((state) => state.cart.items);
 
   const dispatch = useDispatch();
+
+  const handleChange = (e, id) => {
+    console.log(e.target.value);
+    dispatch(updateAsync({ id, change: { quantity: +e.target.value } }));
+  };
 
   return (
     <div>
@@ -22,7 +27,7 @@ export function Cart() {
               Quantity
               <select
                 value={item.quantity}
-                // onChange={(e) => handleChange(e, item.id)}
+                onChange={(e) => handleChange(e, item.id)}
               >
                 <option value={1}>1</option>
                 <option value={2}>2</option>
@@ -35,6 +40,7 @@ export function Cart() {
           </div>
         ))}
       </div>
+      <h2>Total: {items.reduce((acc, item)=> item.price*item.quantity+acc, 0)}</h2>
     </div>
   );
 }

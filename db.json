@@ -555,28 +555,14 @@
   ],
   "cart": [
     {
-      "id": 2,
-      "title": "iPhone X",
-      "brand": "Apple",
-      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
-      "price": 899,
-      "quantity": 1
-    },
-    {
       "id": 4,
       "title": "OPPOF19",
       "brand": "OPPO",
       "thumbnail": "https://i.dummyjson.com/data/products/4/thumbnail.jpg",
       "price": 280,
-      "quantity": 1
-    },
-    {
-      "id": 3,
-      "title": "Samsung Universe 9",
-      "brand": "Samsung",
-      "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
-      "price": 1249,
-      "quantity": 1
+      "quantity": 1,
+      "requestId": "p9frk-Lxw2uZnHgUpHapk",
+      "signal": {}
     },
     {
       "id": 1,
@@ -584,14 +570,6 @@
       "brand": "Apple",
       "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
       "price": 549,
-      "quantity": 1
-    },
-    {
-      "id": 5,
-      "title": "Huawei P30",
-      "brand": "Huawei",
-      "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
-      "price": 499,
       "quantity": 1
     }
   ]
