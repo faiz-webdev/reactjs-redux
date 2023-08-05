@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   fetchItems,
   addItem,
@@ -12,7 +12,7 @@ const initialState = {
   status: "idle",
 };
 
-export const fetchAsync = createAsyncThunk("cart/fetchItems", async () => {
+/*export const fetchAsync = createAsyncThunk("cart/fetchItems", async () => {
   const response = await fetchItems();
 
   return response.data;
@@ -54,7 +54,14 @@ export const updateCartQtyAsync = createAsyncThunk(
 
     return response.data;
   }
-);
+);*/
+
+export const fetchAsync = createAction("cart/fetchItems/pending");
+export const fetchAsyncFulfilled = createAction("cart/fetchItems/fulfilled");
+export const addAsync = createAction("cart/addItems/fulfilled");
+export const updateAsync = createAction("cart/updateItems/fulfilled");
+export const deleteAsync = createAction("cart/deleteItems/fulfilled");
+export const updateCartQtyAsync = createAction("cart/updateCartQtyAsync/fulfilled");
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -63,38 +70,22 @@ export const cartSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(fetchAsync.fulfilled, (state, action) => {
+      .addCase(fetchAsyncFulfilled, (state, action) => {
         state.status = "idle";
         state.items = action.payload;
       })
-      .addCase(addAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(addAsync.fulfilled, (state, action) => {
+      .addCase(addAsync, (state, action) => {
         state.status = "idle";
         state.items.push(action.payload);
       })
-      .addCase(addAsync.rejected, (state, action) => {
-        state.status = "idle";
-        console.log(action.error.message);
-      })
-      .addCase(deleteAsync.fulfilled, (state, action) => {
+      .addCase(deleteAsync, (state, action) => {
         state.status = "idle";
         const index = state.items.findIndex(
           (item) => item.id === action.payload
         );
         state.items.splice(index, 1);
       })
-      .addCase(updateAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        const index = state.items.findIndex(
-          (item) => item.id === action.payload.id
-        );
-        state.items.splice(index, 1, action.payload);
-      }).addCase(updateCartQtyAsync.fulfilled, (state, action) => {
+      .addCase(updateAsync, (state, action) => {
         state.status = "idle";
         const index = state.items.findIndex(
           (item) => item.id === action.payload.id
