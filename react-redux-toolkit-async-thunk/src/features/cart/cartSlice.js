@@ -58,10 +58,19 @@ export const updateCartQtyAsync = createAsyncThunk(
 
 export const fetchAsync = createAction("cart/fetchItems/pending");
 export const fetchAsyncFulfilled = createAction("cart/fetchItems/fulfilled");
-export const addAsync = createAction("cart/addItems/fulfilled");
-export const updateAsync = createAction("cart/updateItems/fulfilled");
-export const deleteAsync = createAction("cart/deleteItems/fulfilled");
-export const updateCartQtyAsync = createAction("cart/updateCartQtyAsync/fulfilled");
+
+export const addAsync = createAction("cart/addItem/pending");
+export const addAsyncFulFilled = createAction("cart/addItem/fulfilled");
+
+export const updateAsync = createAction("cart/updateItem/pending");
+export const updateAsyncFulfilled = createAction("cart/updateItem/fulfilled");
+
+export const deleteAsync = createAction("cart/deleteItems/pending");
+export const deleteAsyncFulfilled = createAction("cart/deleteItems/fulfilled");
+
+export const updateCartQtyAsync = createAction(
+  "cart/updateCartQtyAsync/fulfilled"
+);
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -74,11 +83,11 @@ export const cartSlice = createSlice({
         state.status = "idle";
         state.items = action.payload;
       })
-      .addCase(addAsync, (state, action) => {
+      .addCase(addAsyncFulFilled, (state, action) => {
         state.status = "idle";
         state.items.push(action.payload);
       })
-      .addCase(deleteAsync, (state, action) => {
+      .addCase(deleteAsyncFulfilled, (state, action) => {
         state.status = "idle";
         const index = state.items.findIndex(
           (item) => item.id === action.payload
